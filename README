@@ -9,28 +9,36 @@ RESUMO
 DESCRIÇÃO
     O nome já diz tudo, sem mais comentários... É vez de exemplos ;)
 
-    *666*
-        seissentos e sessenta e seis
+    *   *666* - seissentos e sessenta e seis
 
-    *3128*
-        três mil e cento e vinte e oito
+    *   *3128* - três mil e cento e vinte e oito
 
-USO
+UTILIZAÇÃO
     nums2words (`NUM')
-        Número `NUM' deve ser inteiro na faixa de +/- 999 quadrilhões
-        (10^15; só para ter idéia: um valor máximo que variável de 32 bits
-        aceita é 2,147,483,648). Retorna uma string com o `NUM' escrito por
-        extenso.
+        Número `NUM' deve ser inteiro na faixa de +/- 999 quadrilhões (999 *
+        (10^15)). Retorna uma string com o `NUM' escrito por extenso em
+        Português.
 
 INSTALAÇÃO
-      tar xzvf Lingua-PT-Nums2Words-0.1.tar.gz
-      cd Lingua-PT-Nums2Words-0.1
+      tar xzvf Lingua-PT-Nums2Words-0.2.tar.gz
+      cd Lingua-PT-Nums2Words-0.2
       perl Makefile.PL
       make
+      make test
       su -c make install
 
 VERSÃO
-    0.1
+    0.2
+
+CHANGELOG
+    *   0.1 *(18/Mai/2002)* - primeira versão funcional.
+
+    *   0.2 *(28/Mai/2002)* - código reescrito visando maior eficiência.
+
+BUGS
+    *   Números acima de 4 quadrilhões não são convertidos corretamente.
+        Solução: portar para uso do `Math::BigInt' ou processar escalares
+        como *strings*. Se necessidade apertar, fico com `Math::BigInt'!
 
 AUTOR
        Stanislaw Y. Pusep

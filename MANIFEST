@@ -2,3 +2,4 @@ MANIFEST
 Makefile.PL
 Nums2Words.pm
 README
+t/use.t

@@ -5,14 +5,31 @@ require 5.000;
 use strict;
 use Exporter;
 use vars qw(@ISA @EXPORT $VERSION);
+use vars qw(%data @data_ord);
 
 @ISA		= qw(Exporter);
 @EXPORT		= qw(nums2words);
-$VERSION	= '0.1';
+$VERSION	= '0.2';
+
+
+# hash com nomes de números-"bases"
+%data = qw(
+1 um		2 dois		3 três		4 quatro	5 cinco
+6 seis		7 sete		8 oito		9 nove		10 dez
+11 onze		12 doze		13 treze	14 quatorze	15 quinze
+16 dezesseis	17 dezessete	18 dezoito	19 dezenove	20 vinte
+30 trinta	40 quarenta	50 cinqüenta	60 sessenta	70 setenta
+80 oitenta	90 noventa	100 cento	200 duzentos	300 trezentos
+400 quatrocentos 500 quinhentos	600 seissentos	700 setecentos	800 oitocentos
+900 novecentos
+);
+# preprocessa o array inverso de números
+@data_ord = sort { $b <=> $a } keys %data;
 
 sub nums2words {
    # salva o parâmetro
    my $n = shift;
+
    # definição de variáveis/dados
    my ($s, @r);
    my @ord = qw(
@@ -32,32 +49,39 @@ sub nums2words {
    } else {
       $s = '';
    }
-   
-   # se o número à ser convertido for maior de 999 quadrilhões recusa a conversão
-   return '' unless $n < 10**18;
 
-   if ($n < 1000) {
+   if ($n > 10**18) {
+      # se o número à ser convertido for maior de 999 quadrilhões recusa a conversão
+      return undef;
+   } elsif ($n < 1000) {
       # se o número for menor que 1000 então trata-se de um caso símples
       @r = &ext999 ($n);
    } else {
       # se for maior, quebramos o número em ternas (Ex: 1234567890 => 1,234,567,890)
-      for (my $i = 0, my $j = (length $n) % 3, my $k = int ((length $n) / 3); $j <= length $n; $i = $j, $j += 3, $k--) {
-         next if $i == $j; # numero exato de ternas
-         # $b = uma terna
-         my $b = substr ($n, $i, $j - $i);
-         # não processa se for 0
-         next if $b == 0;
-         # decide a ordem da terna
-         my $o = $k * 2;
-         # faz distinção singular/plural
-         $o += (($b == 1) ? 0 : 1);
+      my $x = $n;
+      for (my $i = 0; $x; $i++) {
+         # pega a última terna
+         my $y = $x % 1000;
 
-         # terna por extenso
-         my $r = &ext999 ($b);
-         # completa com ordem
-         $r .= " $ord[$o]" if $ord[$o];
-         # salva o resultado
-         push @r, $r;
+         # se for != 0
+         if ($y) {
+            # pega a ordem da terna
+            my $k = $i * 2;
+            $k++ if $y != 1;
+            my $ord = $ord[$k];
+
+            # forma string de nome extenso da terna mais ordem
+            my $t = &ext999 ($y);
+            if ($ord) {
+               $t .= " $ord";
+            }
+
+            # salva resultado parcial
+            unshift @r, $t;
+         }
+
+         # continue a redução
+         $x = int ($x / 1000);
       }
    }
 
@@ -70,33 +94,26 @@ sub ext999 {
    my $n = shift;
    # zero é caso especial
    return "zero" if $n == 0;
-   # hash com nomes de números
-   my %data = qw(
-	1 um		2 dois		3 três		4 quatro	5 cinco
-	6 seis		7 sete		8 oito		9 nove		10 dez
-	11 onze		12 doze		13 treze	14 quatorze	15 quinze
-	16 dezesseis	17 dezessete	18 dezoito	19 dezenove	20 vinte
-	30 trinta	40 quarenta	50 cinqüenta	60 sessenta	70 setenta
-	80 oitenta	90 noventa	100 cem		200 duzentos	300 trezentos
-	400 quatrocentos 500 quinhentos	600 seissentos	700 setecentos	800 oitocentos
-	900 novecentos
-   );
+   # cem também é
+   return "cem" if $n == 100;
    
-   my @r;
+   my @r = ();
    # algoritmo de quebra do valor em partes que possuem nome definido
    # o número é reduzido até se tornar 0
-   for (my $i = 0; $n != 0; $i++) {
-      # busca o nome do maior número encontrado à esquerda
-      foreach my $f (sort { $b <=> $a } keys %data) {
-         if ($n =~ m{$f$}) {
-            # subtrai o número encontrado
-	    $n -= $f;
-            # salva o nome
-	    unshift @r, $data{$f};
-	 }
+   while ($n) {
+      # busca o maior número-"base" aplicavel
+      foreach my $x (@data_ord) {
+         # tenta redução
+         my $y = $n % $x;
+         # verifica redução
+         if ($x + $y == $n) {
+            # OK, redução sucedida!
+            $n = $y;
+            # salva o número-"base" convertido
+            push @r, $data{$x};
+            last;
+         }
       }
-      # após a 1-a iteração 100 passa a ser caso especial
-      $data{100} = "cento" unless $i;
    }
    
    # junta os nomes e retorna
@@ -111,10 +128,12 @@ __END__
 
 Lingua::PT::Nums2Words - converte números decimais em escritos por extenso
 
+
 =head1 RESUMO
 
   use Lingua::PT::Nums2Words;
   print &nums2words (65637), "\n";
+
 
 =head1 DESCRIÇÃO
 
@@ -122,39 +141,72 @@ O nome já diz tudo, sem mais comentários... É vez de exemplos ;)
 
 =over 4
 
-=item I<666>
+=item *
 
-seissentos e sessenta e seis
+I<666> - seissentos e sessenta e seis
 
-=item I<3128>
+=item *
 
-três mil e cento e vinte e oito
+I<3128> - três mil e cento e vinte e oito
 
 =back
 
-=head1 USO
+
+=head1 UTILIZAÇÃO
 
 =over 4
 
 =item nums2words (C<NUM>)
 
-Número C<NUM> deve ser inteiro na faixa de +/- 999 quadrilhões (10^15;
- só para ter idéia: um valor máximo que variável de 32 bits aceita é
-2,147,483,648). Retorna uma string com o C<NUM> escrito por extenso.
+Número C<NUM> deve ser inteiro na faixa de +/- 999 quadrilhões
+(999 * (10^15)). Retorna uma string com o C<NUM> escrito por extenso
+em Português.
 
 =back 
 
+
 =head1 INSTALAÇÃO
 
-  tar xzvf Lingua-PT-Nums2Words-0.1.tar.gz
-  cd Lingua-PT-Nums2Words-0.1
+  tar xzvf Lingua-PT-Nums2Words-0.2.tar.gz
+  cd Lingua-PT-Nums2Words-0.2
   perl Makefile.PL
   make
+  make test
   su -c make install
+
 
 =head1 VERSÃO
 
-0.1
+0.2
+
+
+=head1 CHANGELOG
+
+=over 4
+
+=item *
+
+B<0.1> I<(18/Mai/2002)> - primeira versão funcional.
+
+=item *
+
+B<0.2> I<(28/Mai/2002)> - código reescrito visando maior eficiência.
+
+=back
+
+
+=head1 BUGS
+
+=over 4
+
+=item *
+
+Números acima de 4 quadrilhões não são convertidos corretamente.
+Solução: portar para uso do C<Math::BigInt> ou processar escalares
+como I<strings>. Se necessidade apertar, fico com C<Math::BigInt>!
+
+=back
+
 
 =head1 AUTOR
 
@@ -162,6 +214,7 @@ Número C<NUM> deve ser inteiro na faixa de +/- 999 quadrilhões (10^15;
       E-Mail:	stanis@linuxmail.org
       ICQ UIN:	11979567
       Homepage:	http://sysdlabs.hypermart.net/
+
 
 =head1 COPYRIGHT
 
