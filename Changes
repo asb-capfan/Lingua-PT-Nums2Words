@@ -1,5 +1,9 @@
 Revision history for Perl extension Lingua::PT::Nums2Words.
 
+1.02  Tue May  4 18:02:00 2004
+	- the module now converts numbers from 0 to 999999999999999
+	- more tests have been added
+
 1.01  Sat May  1 19:20:00 2004
 	- the module now converts numbers from 0 to 999999
 
