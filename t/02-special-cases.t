@@ -1,6 +1,6 @@
 use Test::More tests => 5;
 
-BEGIN { use_ok('Lingua::PT::Nums2Words') };
+BEGIN { use_ok('Lingua::PT::Nums2Words', 'num2word') };
 
 @a = num2word();
 @b = ();

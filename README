@@ -1,7 +1,9 @@
-Lingua/PT/Nums2Words version 1.05
+Lingua/PT/Nums2Words version 1.06
 =================================
 
-Converts numbers to Portuguese words
+Lingua::PT::Nums2Words - Converts numbers to Portuguese words
+
+=head1 SYNOPSIS
 
   use Lingua::PT::Nums2Words;
 
@@ -12,30 +14,27 @@ Converts numbers to Portuguese words
   # @results now holds ('um', 'dois', 'dez', 'cem', 'mil',
   #                     'nove mil novecentos e noventa e nove')
 
-(works with numbers ranging from 0 to 999.999.999.999.999; does not
-support negative numbers)
+=head1 DESCRIPTION
 
-INSTALLATION
+Nums2Words converts numbers to Portuguese words (works with numbers
+ranging from 0 to 999.999.999.999.999).
 
-To install this module type the following:
+Does not support negative numbers.
 
-   perl Makefile.PL
-   make
-   make test
-   make install
+=head1 SEE ALSO
 
-DEPENDENCIES
+More tools for the Portuguese language processing can be found at the
+Natura project: http://natura.di.uminho.pt
 
-No dependencies
+=head1 AUTHOR
 
-SEE ALSO
+Jose Castro, C<< <cog@cpan.org> >>
 
-The POD documentation in Nums2Words.pm
+=head1 COPYRIGHT & LICENSE
 
-COPYRIGHT AND LICENCE
+Copyright 2004 Jose Castro, All Rights Reserved.
 
-Copyright (C) 2004 Jose Alves de Castro
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
-
+=cut

@@ -19,10 +19,9 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw(
-  num2word
 );
 
-our $VERSION = '1.05';
+our $VERSION = '1.06';
 
 =head1 NAME
 
@@ -30,7 +29,7 @@ Lingua::PT::Nums2Words - Converts numbers to Portuguese words
 
 =head1 SYNOPSIS
 
-  use Lingua::PT::Nums2Words;
+  use Lingua::PT::Nums2Words qw/num2word/;
 
   $result = num2word(5);
   # $result now holds 'cinco'
@@ -45,6 +44,13 @@ Nums2Words converts numbers to Portuguese words (works with numbers
 ranging from 0 to 999.999.999.999.999).
 
 Does not support negative numbers.
+
+=head2 num2word
+
+This is the only function in this module. It turns numbers into words.
+
+  $number = num2word(77);
+  # $number now holds "setenta e sete"
 
 =cut
 
@@ -153,17 +159,18 @@ __END__
 
 =head1 SEE ALSO
 
-http://natura.di.uminho.pt (Project for Portuguese Natural Language Processing)
+More tools for the Portuguese language processing can be found at the
+Natura project: http://natura.di.uminho.pt
 
 =head1 AUTHOR
 
-Jose Alves de Castro, E<lt>cog [at] cpan [dot] org<gt>
+Jose Castro, C<< <cog@cpan.org> >>
 
-=head1 COPYRIGHT AND LICENSE
+=head1 COPYRIGHT & LICENSE
 
-Copyright 2004 by Jose Alves de Castro
+Copyright 2004 Jose Castro, All Rights Reserved.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
