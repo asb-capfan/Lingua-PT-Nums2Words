@@ -1,5 +1,8 @@
 Revision history for Perl extension Lingua::PT::Nums2Words.
 
+1.05  Wed Sep 22 00:09:00 2004
+	- Perl required version is now 5.006 (was 5.008)
+
 1.04  Thu Sep 16 22:01:00 2004
 	- added META.yml
 
