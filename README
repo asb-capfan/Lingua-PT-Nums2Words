@@ -1,53 +1,38 @@
-NOME
-    Lingua::PT::Nums2Words - converte números decimais em escritos por
-    extenso
+Lingua/PT/Nums2Words version 0.01
+================================
 
-RESUMO
-      use Lingua::PT::Nums2Words;
-      print &nums2words (65637), "\n";
+The README is used to introduce the module and provide instructions on
+how to install the module, any machine dependencies it may have (for
+example C compilers and installed libraries) and any other information
+that should be provided before the module is installed.
 
-DESCRIÇÃO
-    O nome já diz tudo, sem mais comentários... É vez de exemplos ;)
+A README file is required for CPAN modules since CPAN extracts the
+README file from a module distribution so that people browsing the
+archive can use it get an idea of the modules uses. It is usually a
+good idea to provide version information here so that people can
+decide whether fixes for the module are worth downloading.
 
-    *   *666* - seissentos e sessenta e seis
+INSTALLATION
 
-    *   *3128* - três mil e cento e vinte e oito
+To install this module type the following:
 
-UTILIZAÇÃO
-    nums2words (`NUM')
-        Número `NUM' deve ser inteiro na faixa de +/- 999 quadrilhões (999 *
-        (10^15)). Retorna uma string com o `NUM' escrito por extenso em
-        Português.
+   perl Makefile.PL
+   make
+   make test
+   make install
 
-INSTALAÇÃO
-      tar xzvf Lingua-PT-Nums2Words-0.2.tar.gz
-      cd Lingua-PT-Nums2Words-0.2
-      perl Makefile.PL
-      make
-      make test
-      su -c make install
+DEPENDENCIES
 
-VERSÃO
-    0.2
+This module requires these other modules and libraries:
 
-CHANGELOG
-    *   0.1 *(18/Mai/2002)* - primeira versão funcional.
+  blah blah blah
 
-    *   0.2 *(28/Mai/2002)* - código reescrito visando maior eficiência.
+COPYRIGHT AND LICENCE
 
-BUGS
-    *   Números acima de 4 quadrilhões não são convertidos corretamente.
-        Solução: portar para uso do `Math::BigInt' ou processar escalares
-        como *strings*. Se necessidade apertar, fico com `Math::BigInt'!
+Put the correct copyright and licence information here.
 
-AUTOR
-       Stanislaw Y. Pusep
-          E-Mail:   stanis@linuxmail.org
-          ICQ UIN:  11979567
-          Homepage: http://sysdlabs.hypermart.net/
+Copyright (C) 2004 Jose Alves de Castro
 
-COPYRIGHT
-    Copyright (c) 1997-2002 by Stas. All rights reserved. This program is
-    free software; you can redistribute it and/or modify it under the same
-    terms as Perl itself.
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. 
 

@@ -1,5 +1,8 @@
-MANIFEST
+Changes
 Makefile.PL
+MANIFEST
 Nums2Words.pm
 README
-t/use.t
+t/01-num2word.t
+t/02-special-cases.t
+t/03-misc.t
