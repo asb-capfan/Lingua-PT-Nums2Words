@@ -1,16 +1,19 @@
-Lingua/PT/Nums2Words version 0.01
-================================
+Lingua/PT/Nums2Words version 1.03
+=================================
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
+Converts numbers to Portuguese words
 
-A README file is required for CPAN modules since CPAN extracts the
-README file from a module distribution so that people browsing the
-archive can use it get an idea of the modules uses. It is usually a
-good idea to provide version information here so that people can
-decide whether fixes for the module are worth downloading.
+  use Lingua::PT::Nums2Words;
+
+  $result = num2word(5);
+  # $result now holds 'cinco'
+
+  @results = num2word(1,2,10,100,1000,9999);
+  # @results now holds ('um', 'dois', 'dez', 'cem', 'mil',
+  #                     'nove mil novecentos e noventa e nove')
+
+(works with numbers ranging from 0 to 999.999.999.999.999; does not
+support negative numbers)
 
 INSTALLATION
 
@@ -25,9 +28,11 @@ DEPENDENCIES
 
 No dependencies
 
-COPYRIGHT AND LICENCE
+SEE ALSO
 
-Put the correct copyright and licence information here.
+The POD documentation in Nums2Words.pm
+
+COPYRIGHT AND LICENCE
 
 Copyright (C) 2004 Jose Alves de Castro
 

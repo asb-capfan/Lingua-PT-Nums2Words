@@ -22,7 +22,7 @@ our @EXPORT = qw(
   num2word
 );
 
-our $VERSION = '1.02';
+our $VERSION = '1.03';
 
 =head1 NAME
 
@@ -41,7 +41,10 @@ Lingua::PT::Nums2Words - Converts numbers to Portuguese words
 
 =head1 DESCRIPTION
 
-Nums2Words converts numbers to Portuguese words.
+Nums2Words converts numbers to Portuguese words (works with numbers
+ranging from 0 to 999.999.999.999.999).
+
+Does not support negative numbers.
 
 =cut
 
@@ -50,6 +53,7 @@ sub num2word {
   my @numbers = wantarray ? @_ : shift;
   my @results = map {
     $_ < 0 && return $_;
+    #$_ > 999999999999999999 && return $_;
     $_ > 999999999999999 && return $_;
     if ( $_ > 999999999999 ) {
       my ($bil,$mil) = /(.*)(\d{12})$/;
@@ -147,20 +151,15 @@ sub num2word {
 1;
 __END__
 
-=head1 WARNING
+=head1 MESSAGE FROM THE AUTHOR
 
-The current version of Nums2Words works (hopefully) with numbers ranging from 0
-to 999999999999999. This will be enhanced soon (again, hopefully).
-
-=head1 TO DO
-
-Negative numbers support
-
-Thousand of bilions and above working
+If you're using this module, please drop me a line to my e-mail. Tell me what
+you're doing with it. Also, feel free to suggest new bugs^H^H^H^H^H features
+O:-)
 
 =head1 AUTHOR
 
-Jose Alves de Castro, E<lt>jac@natura.di.uminho.pt<gt>
+Jose Alves de Castro, E<lt>cog [at] cpan [dot] org<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
