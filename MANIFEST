@@ -2,7 +2,7 @@ Changes
 Makefile.PL
 MANIFEST
 lib/Lingua/PT/Nums2Words.pm
-README
+README.md
 t/01-num2word.t
 t/02-special-cases.t
 t/03-misc.t
